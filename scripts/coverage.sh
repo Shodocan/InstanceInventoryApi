@@ -2,6 +2,7 @@
 
 THRESHOLD=$1
 
+
 go test -timeout=2m -covermode=atomic -coverprofile coverage.out ./...
 sed -i '/mock.go/d' coverage.out
 COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}')

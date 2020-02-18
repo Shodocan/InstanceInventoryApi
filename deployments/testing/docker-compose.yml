@@ -2,16 +2,8 @@ version: "3.7"
 
 services:
   mongodb:
-    image: mongo:4
+    ports:
+      - 27017:27017
+    image: testing-mongo
     environment: 
       MONGO_INITDB_DATABASE: "Instance"
-    volumes:
-      - "./mongo/data:/data"
-    configs:
-      - source: import_script
-        target: /docker-entrypoint-initdb.d/import.sh
-    
-configs:
-  import_script:
-    name: "import_script"
-    file: ./mongo/import.sh
