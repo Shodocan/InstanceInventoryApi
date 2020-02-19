@@ -3,21 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  lint:
-    docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
-    steps:
-      - checkout
-      - run: go get -t ./...
-      - run:
-          command: |
-            curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.23.6
-            go get -u golang.org/x/tools/cmd/cover
-      - run:
-          command: |
-            echo Running lint
-            make lint
   build:
     docker:
       - image: circleci/golang:1.13
@@ -32,5 +17,5 @@ jobs:
             go get -u golang.org/x/tools/cmd/cover
       - run:
           command: |
-            echo Running test
+            echo Running test lint
             make covercheck
