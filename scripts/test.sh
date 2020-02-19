@@ -22,7 +22,7 @@ docker run -p 27017:27017 -d --rm -e MONGO_INITDB_DATABASE="Instance" --name inv
 
 export DB_DATABASE=Instance
 export DB_PORT=27017
-export DB_HOST=localhost
+export DB_HOST=$DOCKER_HOST
 export LOG_LEVEL=Info
 
 go get -t -v ./...
