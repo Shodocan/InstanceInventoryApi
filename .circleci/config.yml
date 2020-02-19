@@ -24,6 +24,7 @@ jobs:
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
+      - setup_remote_docker
       - run: go get -t ./...
       - run:
           command: |
