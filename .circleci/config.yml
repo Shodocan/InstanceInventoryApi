@@ -10,9 +10,9 @@ jobs:
     steps:
       - checkout
       - run:
-        command: |
-          echo Running lint
-          make lint
+          command: |
+            echo Running lint
+            make lint
   build:
     docker:
       - image: circleci/golang:1.13
@@ -20,7 +20,6 @@ jobs:
     steps:
       - checkout
       - run:
-        shell: /bin/sh
-        command: |
-          echo Running test
-          make test
+          command: |
+            echo Running test
+            make test
