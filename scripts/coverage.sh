@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 THRESHOLD=$1
 
@@ -6,8 +6,10 @@ THRESHOLD=$1
 sed -i '/mock.go/d' coverage.out
 COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}')
 COVERAGE=${COVERAGE%\%}
+COVERAGE=$(printf "%.0f" ${COVERAGE} ) 
 
-if (( $(echo "${COVERAGE} >= ${THRESHOLD}" | bc -l) ));then
+if [ ${COVERAGE} -gt ${THRESHOLD} ]
+then
     echo "coverage above threshold"
     echo "coverage: ${COVERAGE} - threshold: ${THRESHOLD}"
     exit 0

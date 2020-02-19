@@ -17,5 +17,8 @@ jobs:
             go get -u golang.org/x/tools/cmd/cover
       - run:
           command: |
-            echo Running test lint
-            make covercheck
+            echo Running lint -> test -> coverage -> build
+            make build
+      - run:
+          command: |
+            echo Running release

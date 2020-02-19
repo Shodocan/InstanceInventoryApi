@@ -25,8 +25,12 @@ docker build -t inventory-tests deployments/local/tests
 
 docker run -e DB_HOST="inventory-mongo" --name inventory-tests --network=inventory inventory-tests
 
+EXIT=$(docker inspect inventory-tests --format='{{.State.ExitCode}}')
+
 docker cp inventory-tests:/go/src/github.com/Shodocan/InstanceInventoryApi/coverage.out .
 
 docker rm inventory-tests
 
 docker stop inventory-mongo
+
+exit $EXIT
