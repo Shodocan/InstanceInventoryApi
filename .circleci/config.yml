@@ -4,7 +4,7 @@
 version: 2
 jobs:
   lint:
-  	docker:
+    docker:
       - image: circleci/golang:1.13
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run:
-      	shell: /bin/sh
+        shell: /bin/sh
         command: |
           echo Running test
           make test
