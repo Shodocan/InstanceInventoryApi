@@ -2,17 +2,17 @@ TEST?=./...
 
 default: test
 
-build:
+build: covercheck
 	@sh -c "'$(CURDIR)/scripts/build.sh' app"
-
-lint:
-	@sh -c "'$(CURDIR)/scripts/lint.sh'"
 
 covercheck: cover
 	@sh -c "'$(CURDIR)/scripts/coverage.sh' 90"
 
+cover: test
+	@sh -c "'$(CURDIR)/scripts/cover.sh'"
+
 test: lint
 	@sh -c "'$(CURDIR)/scripts/test.sh'"
 
-cover: test
-	@sh -c "'$(CURDIR)/scripts/cover.sh'"
+lint:
+	@sh -c "'$(CURDIR)/scripts/lint.sh'"
