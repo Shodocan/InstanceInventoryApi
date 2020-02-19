@@ -14,11 +14,11 @@ then
 fi
 
 cp ./bin/app ./deployments
-docker build -t walissoncasonatto/instance-inventory-api:${BUILD} deployments
+docker build -t walissoncasonatto/instance-inventory-api:${BUILD} -t walissoncasonatto/instance-inventory-api deployments
 
 rm -rf ./deployments/app
 
-docker build -t walissoncasonatto/instance-inventory-db:${BUILD} deployments/local/mongo
+docker build -t walissoncasonatto/instance-inventory-db:${BUILD} -t walissoncasonatto/instance-inventory-db deployments/local/mongo
 
 if [ -z ${DOCKER_HUB_LOGIN} ]
 then
@@ -30,3 +30,6 @@ docker login -u ${DOCKER_HUB_LOGIN} -p ${DOCKER_HUB_PASS}
 
 docker push walissoncasonatto/instance-inventory-db:${BUILD}
 docker push walissoncasonatto/instance-inventory-api:${BUILD}
+
+docker push walissoncasonatto/instance-inventory-db:latest
+docker push walissoncasonatto/instance-inventory-api:latest

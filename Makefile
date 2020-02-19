@@ -17,3 +17,6 @@ lint:
 
 release:
 	@sh -c "'$(CURDIR)/scripts/release.sh' local"
+
+run:
+	@sh -c "'$(CURDIR)/scripts/run.sh'"
