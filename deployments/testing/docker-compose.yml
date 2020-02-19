@@ -1,9 +1,0 @@
-version: "3.7"
-
-services:
-  mongodb:
-    ports:
-      - 27017:27017
-    image: testing-mongo
-    environment: 
-      MONGO_INITDB_DATABASE: "Instance"

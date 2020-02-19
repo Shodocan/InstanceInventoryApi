@@ -1,31 +1,31 @@
 #!/bin/sh
 
-set -eu
 
 export GO111MODULE=on
 
-if [ -z "$LOG_LEVEL" ]
+# stop old mongo instances
+
+MONGO_DOCKER=$(docker ps | grep inventory-mongo)
+if [  -z "$MONGO_DOCKER" ]
 then
-    export LOG_LEVEL=Debug
+    echo "No Mongo Running"
+else
+    docker stop inventory-mongo
 fi
 
-if [ -z "$DB_HOST" ]
-then
-    export DB_HOST=localhost
-fi
+# build new mongo
+docker build -t testing-mongo deployments/local/mongo
 
-if [ -z "$DB_PORT" ]
-then
-    export DB_PORT=27017
-fi
+docker run -p 27017:27017 -d --rm -e MONGO_INITDB_DATABASE="Instance" --name inventory-mongo testing-mongo
 
+#point tests to mongo
 
-if [ -z "$DB_DATABASE" ]
-then
-    export DB_DATABASE=Instance
-fi
-
-
+export DB_DATABASE=Instance
+export DB_PORT=27017
+export DB_HOST=localhost
+export LOG_LEVEL=Info
 
 go get -t -v ./...
-go test ./... -timeout=2m -parallel=4
+go test ./... -timeout=2m -parallel=4 -covermode=atomic -coverprofile coverage.out
+
+docker stop inventory-mongo

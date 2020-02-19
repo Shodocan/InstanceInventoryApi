@@ -8,16 +8,11 @@ build:
 lint:
 	@sh -c "'$(CURDIR)/scripts/lint.sh'"
 
-fmtcheck:
-	@sh -c "'$(CURDIR)/scripts/fmt.sh'"
-
-covercheck:
+covercheck: cover
 	@sh -c "'$(CURDIR)/scripts/coverage.sh' 90"
-	rm coverage.out
 
-cover:
-	@sh -c "'$(CURDIR)/scripts/cover.sh'"
-
-test: fmtcheck
+test: lint
 	@sh -c "'$(CURDIR)/scripts/test.sh'"
 
+cover: test
+	@sh -c "'$(CURDIR)/scripts/cover.sh'"

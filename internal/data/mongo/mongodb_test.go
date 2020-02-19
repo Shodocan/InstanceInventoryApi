@@ -22,9 +22,20 @@ func TestMongoConnect(t *testing.T) {
 		t.Skip()
 		return
 	}
-	mongo := NewMongoDB()
+	mongo := NewDB()
 	err := mongo.Connect("instances")
 	assert.Nil(t, err, "falha ao conectar no mongo", err)
+}
+
+func TestPing(t *testing.T) {
+	if !checkMongo(t) {
+		t.Skip()
+		return
+	}
+	mongo := NewDB()
+	err := mongo.Connect("instances")
+	assert.Nil(t, err, "falha ao conectar no mongo", err)
+	assert.Nil(t, mongo.Ping(), "Deveria conseguir fazer um Ping")
 }
 
 func TestNotConnected(t *testing.T) {
@@ -32,7 +43,7 @@ func TestNotConnected(t *testing.T) {
 		t.Skip()
 		return
 	}
-	mongo := NewMongoDB()
+	mongo := NewDB()
 	result := []map[string]interface{}{}
 	err := mongo.Aggregate([]bson.M{
 		bson.M{
@@ -47,7 +58,7 @@ func TestInvalidQuery(t *testing.T) {
 		t.Skip()
 		return
 	}
-	mongo := NewMongoDB()
+	mongo := NewDB()
 	err := mongo.Connect("instances")
 	assert.Nil(t, err, "falha ao conectar no mongo", err)
 	result := []map[string]interface{}{}
@@ -64,7 +75,7 @@ func TestMongoAggregate(t *testing.T) {
 		t.Skip()
 		return
 	}
-	mongo := NewMongoDB()
+	mongo := NewDB()
 	err := mongo.Connect("instances")
 	assert.Nil(t, err, "falha ao conectar no mongo", err)
 
