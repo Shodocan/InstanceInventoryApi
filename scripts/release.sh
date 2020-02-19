@@ -16,7 +16,7 @@ fi
 cp ./bin/app ./deployments
 docker build -t walissoncasonatto/instance-inventory-api:${BUILD} deployments
 
-rm-rf ./deployments/app
+rm -rf ./deployments/app
 
 docker build -t walissoncasonatto/instance-inventory-db:${BUILD} deployments/local/mongo
 

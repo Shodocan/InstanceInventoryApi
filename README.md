@@ -1,4 +1,4 @@
-dependencias:
+## dependencias:
 
 go 1.13 ou superior
 
@@ -7,7 +7,12 @@ curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/insta
 cover:
 go get -u golang.org/x/tools/cmd/cover
 
-
-
 go get github.com/Shodocan/InstanceInventoryApi
-make build -> realiza as checagens de cobertura, gera o relatorio de coverage e gera um compilado
+
+#### make build -> realiza as checagens de cobertura, gera o relatorio de coverage e gera um compilado
+
+#### make release -> gera uma versao da imagem para rodar local
+
+## Rodar Local usando Docker (apenas docker)
+
+#### make run
