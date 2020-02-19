@@ -13,19 +13,20 @@ else
     docker stop inventory-mongo
 fi
 
+docker network create -d bridge inventory
 # build new mongo
-docker build -t testing-mongo deployments/local/mongo
+docker build -t inventory-mongo deployments/local/mongo
 
-docker run -p 27017:27017 -d --rm -e MONGO_INITDB_DATABASE="Instance" --name inventory-mongo testing-mongo
+docker run -d --rm -e MONGO_INITDB_DATABASE="Instance" --name inventory-mongo --network=inventory inventory-mongo
 
 #point tests to mongo
 
-export DB_DATABASE=Instance
-export DB_PORT=27017
-export DB_HOST=$DOCKER_HOST
-export LOG_LEVEL=Info
+docker build -t inventory-tests deployments/local/tests
 
-go get -t -v ./...
-go test ./... -timeout=2m -parallel=4 -covermode=atomic -coverprofile coverage.out
+docker run -e DB_HOST="inventory-mongo" --name inventory-tests --network=inventory inventory-tests
+
+docker cp inventory-tests:/go/src/github.com/Shodocan/InstanceInventoryApi/coverage.out .
+
+docker rm inventory-tests
 
 docker stop inventory-mongo

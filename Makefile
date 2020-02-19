@@ -3,7 +3,7 @@ TEST?=./...
 default: test
 
 build: covercheck
-	@sh -c "'$(CURDIR)/scripts/build.sh' app"
+	@sh -c "'$(CURDIR)/scripts/build.sh' bin/app"
 
 covercheck: cover
 	@sh -c "'$(CURDIR)/scripts/coverage.sh' 90"
