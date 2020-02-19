@@ -7,7 +7,7 @@ jobs:
     docker:
       - image: circleci/golang:1.13
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
-    context: GENERAL
+    context: inventory-api
     steps:
       - checkout
       - setup_remote_docker
