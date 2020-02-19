@@ -1,5 +1,3 @@
-TEST?=./...
-
 default: test
 
 build: covercheck
@@ -16,3 +14,6 @@ test: lint
 
 lint:
 	@sh -c "'$(CURDIR)/scripts/lint.sh'"
+
+release:
+	@sh -c "'$(CURDIR)/scripts/release.sh' local"
