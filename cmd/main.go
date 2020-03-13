@@ -10,7 +10,7 @@ import (
 
 func main() {
 	r := chi.NewRouter()
-	r.Post("/instance", rest.NewInstanceHandler().Handle)
-	r.Get("/health", rest.NewHealthHandler().Handle)
+	r.HandleFunc("/instance", rest.NewInstanceHandler().Handle)
+	r.HandleFunc("/health", rest.NewHealthHandler().Handle)
 	log.Panic(http.ListenAndServe(":80", r))
 }
