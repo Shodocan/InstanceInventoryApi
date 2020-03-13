@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: inventory-api
-        image: walissoncasonatto/instance-inventory-api:18
+        image: walissoncasonatto/instance-inventory-api:20
         ports:
         - containerPort: 80
         env:
@@ -47,4 +47,3 @@ spec:
         backend:
           serviceName: inventory-api-service
           servicePort: 80
-    host: foo.bar          
