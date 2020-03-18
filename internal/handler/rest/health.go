@@ -1,12 +1,18 @@
 package rest
 
-import "net/http"
+import (
+	"net/http"
+	"time"
+)
 
 type HealthHandler struct {
+	startTime time.Time
 }
 
 func NewHealthHandler() Handler {
-	return new(HealthHandler)
+	handler := new(HealthHandler)
+	handler.startTime = time.Now()
+	return handler
 }
 
 func (h *HealthHandler) Handle(w http.ResponseWriter, r *http.Request) {
@@ -19,5 +25,10 @@ func (h *HealthHandler) Handle(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HealthHandler) get(w http.ResponseWriter) {
-	w.WriteHeader(200)
+	if time.Since(h.startTime) > 10*time.Second {
+		w.WriteHeader(500)
+	} else {
+		w.WriteHeader(200)
+	}
+
 }
