@@ -30,5 +30,4 @@ func (h *HealthHandler) get(w http.ResponseWriter) {
 	} else {
 		w.WriteHeader(200)
 	}
-
 }
