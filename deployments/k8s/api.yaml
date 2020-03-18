@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: inventory-api
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: inventory-api
@@ -14,22 +14,22 @@ spec:
     spec:
       containers:
       - name: inventory-api
-        image: walissoncasonatto/instance-inventory-api:20
+        image: walissoncasonatto/instance-inventory-api:27
         ports:
         - containerPort: 80
         readinessProbe:
           httpGet:
-            path: /healthx
+            path: /health
             port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 3
-          successThreshold: 30
+          initialDelaySeconds: 1
+          periodSeconds: 1
+          successThreshold: 3
         livenessProbe:
           httpGet:
             path: /health
             port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          initialDelaySeconds: 1
+          periodSeconds: 5
         env:
         - name: LOG_LEVEL
           valueFrom:
@@ -51,6 +51,11 @@ spec:
             configMapKeyRef:
               name: db-config
               key: db-port
+        - name: LIVING_TIME
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: living-time
 ---
 apiVersion: v1
 kind: Service
