@@ -3,6 +3,8 @@ package rest
 import (
 	"net/http"
 	"time"
+
+	configs "github.com/Shodocan/InstanceInventoryApi/configs"
 )
 
 type HealthHandler struct {
@@ -25,7 +27,7 @@ func (h *HealthHandler) Handle(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HealthHandler) get(w http.ResponseWriter) {
-	if time.Since(h.startTime) > 10*time.Second {
+	if time.Since(h.startTime) > configs.GetLivingTime() {
 		w.WriteHeader(500)
 	} else {
 		w.WriteHeader(200)
