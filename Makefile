@@ -20,3 +20,6 @@ release:
 
 run:
 	@sh -c "'$(CURDIR)/scripts/run.sh'"
+
+apply:
+	@bash -c "'$(CURDIR)/scripts/apply.sh'"

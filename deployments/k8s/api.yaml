@@ -19,13 +19,25 @@ spec:
         - containerPort: 80
         env:
         - name: LOG_LEVEL
-          value: "Debug"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: log-level
         - name: DB_HOST
-          value: "inventory-db-service.default.svc.cluster.local"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: db-host
         - name: DB_DATABASE
-          value: "Instance"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: db-name
         - name: DB_PORT
-          value: "27017"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: db-port
 ---
 apiVersion: v1
 kind: Service

@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: db-config
 data:
+  log-level: "Debug"
   db-name: "Instance"
+  db-host: "inventory-db-service.default.svc.cluster.local"
+  db-port: "27017"
